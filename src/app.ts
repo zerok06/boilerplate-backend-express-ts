@@ -8,7 +8,10 @@ const port = process.env.PORT || 3000
 
 
 // config
-app.use(morgan('dev'))
+morgan.token('iso-date', () => new Date().toISOString());
+app.use(
+    morgan(':remote-addr [:iso-date] ":method :url HTTP/:http-version" :status :res[content-length] - :response-time ms ":referrer" ":user-agent"')
+);
 app.use(cors())
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
